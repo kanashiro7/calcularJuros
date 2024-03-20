@@ -35,6 +35,8 @@ import androidx.compose.ui.unit.sp
 import com.example.calculojuros.calculos.calcularJuros
 import com.example.calculojuros.calculos.calcularMontante
 import com.example.calculojuros.components.CaixaDeEntrada
+import com.example.calculojuros.components.CardResultado
+import com.example.calculojuros.juros.JurosScreen
 import com.example.calculojuros.ui.theme.CalculoJurosTheme
 
 class MainActivity : ComponentActivity() {
@@ -53,176 +55,198 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-@Composable
-fun JurosScreen(){
-
-    var capital by remember {
-        mutableStateOf("")
-    }
-    var taxa by remember {
-        mutableStateOf("")
-    }
-    var tempo by remember {
-        mutableStateOf("")
-    }
-    var juros by remember {
-        mutableStateOf(0.0)
-    }
-    var montante by remember {
-        mutableStateOf(0.0)
-    }
-
-    Box(
-        modifier = Modifier.padding(16.dp),
-        contentAlignment = Alignment.Center
-    ){
-        Column(){
-            Text(
-                text = "Cáculo de Juros Simples",
-                modifier = Modifier.fillMaxWidth(),
-                fontSize = 20.sp,
-                color = Color.Red,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(32.dp))
+//@Composable
+//fun JurosScreen(){
+//
+//    var capital by remember {
+//        mutableStateOf("")
+//    }
+//    var taxa by remember {
+//        mutableStateOf("")
+//    }
+//    var tempo by remember {
+//        mutableStateOf("")
+//    }
+//    var juros by remember {
+//        mutableStateOf(0.0)
+//    }
+//    var montante by remember {
+//        mutableStateOf(0.0)
+//    }
+//
+//    Box(
+//        modifier = Modifier.padding(16.dp),
+//        contentAlignment = Alignment.Center
+//    ){
+//        Column(){
+//            Text(
+//                text = "Cáculo de Juros Simples",
+//                modifier = Modifier.fillMaxWidth(),
+//                fontSize = 20.sp,
+//                color = Color.Red,
+//                fontWeight = FontWeight.Bold,
+//                textAlign = TextAlign.Center
+//            )
+//            Spacer(modifier = Modifier.height(32.dp))
             //Formulário para entrada de dados
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ){
-                Column(modifier = Modifier.padding(16.dp)){
-                    Text(
-                        text = "Dados do investimento",
-                        fontWeight = FontWeight.Bold
-                    )
-                    /*OutlinedTextField(
-                        value = capital,
-                        onValueChange = {capital = it},
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        placeholder = {
-                            Text(text = "Quanto deseja investir?")
-                        },
-                        label = {
-                            Text(text = "Valor do investimento")
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Decimal
-                        )
-                    )*/
-                CaixaDeEntrada(
-                    value = capital,
-                    placeholder = "Quanto deseja investir?",
-                    label = "Valor do investimento",
-                    modifier = Modifier,
-                    keyboardType = KeyboardType.Decimal
-                ){
-                    capital = it
-                }
-                    OutlinedTextField(
-                        value = taxa ,
-                        onValueChange = {taxa = it},
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        placeholder = {
-                            Text(text = "Qual a taxa de juros mensal?")
-                        },
-                        label = {
-                            Text(text = "Taxa de juros mensal")
-                        },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
-                    )
-                    OutlinedTextField(
-                        value = tempo,
-                        onValueChange = {tempo = it},
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                    placeholder = {
-                        Text(text = "Qual o tempo em meses?")
-                    },
-                        label = {
-                            Text(text = "Período em meses")
-                        },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
-                    )
-                    Button(
-                        onClick = {
-                            juros = calcularJuros(
-                                capital = capital.toDouble(),
-                                taxa = taxa.toDouble(),
-                                tempo = tempo.toDouble()
-                            )
-                            montante = calcularMontante(
-                                capital = capital.toDouble(),
-                                juros = juros
-                            )
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(32.dp)
-                    ){
-                        Text(text = "CALCULAR")
-                    }
-                }
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = Color(0xFF4CAF50)
-                )
-            ){
-             Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                ){
-                    Text(
-                        text = "Resultado",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
-                 Spacer(modifier = Modifier.height(16.dp))
-                 Row(modifier = Modifier.fillMaxWidth()){
-                     Text(
-                         text = "Juros",
-                         modifier = Modifier.padding(end = 8.dp),
-                         fontSize = 16.sp,
-                         fontWeight = FontWeight.Bold)
-                }
-                 Text(
-                     text = juros.toString(),
-                     modifier = Modifier.padding(end = 16.dp),
-                     fontSize = 16.sp,
-                     fontWeight = FontWeight.Bold,
-                     color = Color.White
-                 )
-                 Spacer(modifier = Modifier.height(8.dp))
-                 Row(modifier = Modifier.fillMaxWidth()){
-                     Text(
-                         text = "Montante",
-                         modifier = Modifier.padding(end = 8.dp),
-                         fontSize = 16.sp,
-                         fontWeight = FontWeight.Bold,
-                     )
-                     Text(
-                         text = montante.toString(),
-                         modifier = Modifier.padding(end = 8.dp),
-                         fontSize = 16.sp,
-                         fontWeight = FontWeight.Bold,
-                         color = Color.White
-                     )
-            }
-        }
-    }
-
-  }
-
-    }
-}
+//            Card(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//            ){
+//                Column(modifier = Modifier.padding(16.dp)){
+//                    Text(
+//                        text = "Dados do investimento",
+//                        fontWeight = FontWeight.Bold
+//                    )
+//                    /*OutlinedTextField(
+//                        value = capital,
+//                        onValueChange = {capital = it},
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .padding(16.dp),
+//                        placeholder = {
+//                            Text(text = "Quanto deseja investir?")
+//                        },
+//                        label = {
+//                            Text(text = "Valor do investimento")
+//                        },
+//                        keyboardOptions = KeyboardOptions(
+//                            keyboardType = KeyboardType.Decimal
+//                        )
+//                    )*/
+//                    CaixaDeEntrada(
+//                        value = capital,
+//                        placeholder = "Quanto deseja investir?",
+//                        label = "Valor do investimento",
+//                        modifier = Modifier,
+//                        keyboardType = KeyboardType.Decimal
+//                    ){
+//                        capital = it
+//                    }
+//                    /*OutlinedTextField(
+//                        value = taxa ,
+//                        onValueChange = {taxa = it},
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .padding(16.dp),
+//                        placeholder = {
+//                            Text(text = "Qual a taxa de juros mensal?")
+//                        },
+//                        label = {
+//                            Text(text = "Taxa de juros mensal")
+//                        },
+//                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+//                    )
+//                    */
+//                    CaixaDeEntrada(
+//                        value = taxa,
+//                        placeholder = "Qual a taxa do juros mensal",
+//                        label = "Taxa de juros mensal",
+//                        modifier = Modifier,
+//                        keyboardType = KeyboardType.Decimal,
+//                    ){
+//                        taxa = it
+//                    }
+//                    /*OutlinedTextField(
+//                        value = tempo,
+//                        onValueChange = {tempo = it},
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .padding(16.dp),
+//                    placeholder = {
+//                        Text(text = "Qual o tempo em meses?")
+//                    },
+//                        label = {
+//                            Text(text = "Período em meses")
+//                        },
+//                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+//                    )
+//                    */
+//                    CaixaDeEntrada(
+//                        value = tempo,
+//                        placeholder = "Qual o período do investimento mensal",
+//                        label = "Período em meses",
+//                        modifier = Modifier,
+//                        keyboardType = KeyboardType.Decimal,
+//                    ){
+//                        tempo = it
+//                    }
+//                    Button(
+//                        onClick = {
+//                            juros = calcularJuros(
+//                                capital = capital.toDouble(),
+//                                taxa = taxa.toDouble(),
+//                                tempo = tempo.toDouble()
+//                            )
+//                            montante = calcularMontante(
+//                                capital = capital.toDouble(),
+//                                juros = juros
+//                            )
+//                        },
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .padding(32.dp)
+//                    ){
+//                        Text(text = "CALCULAR")
+//                    }
+//                }
+//
+//            }
+//            /*Spacer(modifier = Modifier.height(16.dp))
+//            Card(
+//                modifier = Modifier
+//                    .fillMaxWidth(),
+//                colors = CardDefaults.cardColors(
+//                    containerColor = Color(0xFF4CAF50)
+//                )
+//            ){
+//             Column(
+//                    modifier = Modifier
+//                        .padding(16.dp)
+//                ){
+//                    Text(
+//                        text = "Resultado",
+//                        fontSize = 18.sp,
+//                        fontWeight = FontWeight.Bold,
+//                        color = Color.White
+//                    )
+//                 Spacer(modifier = Modifier.height(16.dp))
+//                 Row(modifier = Modifier.fillMaxWidth()){
+//                     Text(
+//                         text = "Juros",
+//                         modifier = Modifier.padding(end = 8.dp),
+//                         fontSize = 16.sp,
+//                         fontWeight = FontWeight.Bold)
+//                }
+//                 Text(
+//                     text = juros.toString(),
+//                     modifier = Modifier.padding(end = 16.dp),
+//                     fontSize = 16.sp,
+//                     fontWeight = FontWeight.Bold,
+//                     color = Color.White
+//                 )
+//                 Spacer(modifier = Modifier.height(8.dp))
+//                 Row(modifier = Modifier.fillMaxWidth()){
+//                     Text(
+//                         text = "Montante",
+//                         modifier = Modifier.padding(end = 8.dp),
+//                         fontSize = 16.sp,
+//                         fontWeight = FontWeight.Bold,
+//                     )
+//                     Text(
+//                         text = montante.toString(),
+//                         modifier = Modifier.padding(end = 8.dp),
+//                         fontSize = 16.sp,
+//                         fontWeight = FontWeight.Bold,
+//                         color = Color.White
+//                     )
+//            }
+//
+//             */
+//            Spacer(modifier = Modifier.height(16.dp))
+            //Resultado da aplicação
+//            CardResultado(juros = juros, montante = montante)
+//        }
+//    }
+//
+//}
