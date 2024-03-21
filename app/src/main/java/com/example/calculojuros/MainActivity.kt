@@ -37,6 +37,7 @@ import com.example.calculojuros.calculos.calcularMontante
 import com.example.calculojuros.components.CaixaDeEntrada
 import com.example.calculojuros.components.CardResultado
 import com.example.calculojuros.juros.JurosScreen
+import com.example.calculojuros.juros.JurosScreenViewModel
 import com.example.calculojuros.ui.theme.CalculoJurosTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                JurosScreen()
+                JurosScreen(JurosScreenViewModel())
                 }
             }
         }
